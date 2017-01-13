@@ -350,21 +350,21 @@ rfe.formula <- function (form, data, ..., subset, na.action, contrasts = NULL)
 print.rfe <- function(x, top = 5, digits = max(3, getOption("digits") - 3), ...)
 {
 
-  cat("\nRecursive feature selection\n\n")
+  cat2("\nRecursive feature selection\n\n")
 
   resampleN <- unlist(lapply(x$control$index, length))
   numResamp <- length(resampleN)
 
   resampText <- resampName(x)
-  cat("Outer resampling method:", resampText, "\n")
+  cat2("Outer resampling method:", resampText, "\n")
 
-  cat("\nResampling performance over subset size:\n\n")
+  cat2("\nResampling performance over subset size:\n\n")
   x$results$Selected <- ""
   x$results$Selected[x$results$Variables == x$bestSubset] <- "*"
   print(format(x$results, digits = digits), row.names = FALSE)
-  cat("\n")
+  cat2("\n")
 
-  cat("The top ",
+  cat2("The top ",
       min(top, x$bestSubset),
       " variables (out of ",
       x$bestSubset,
@@ -408,7 +408,7 @@ rfeIter <- function(x, y,
     if(!any(is.na(seeds))) set.seed(seeds[k])
     if(rfeControl$verbose)
     {
-      cat("+(rfe) fit",
+      cat2("+(rfe) fit",
           ifelse(label != "",
                  label, ""),
           "size:",  sizeText[k], "\n")
@@ -420,7 +420,7 @@ rfeIter <- function(x, y,
                                           ...)
     if(rfeControl$verbose)
     {
-      cat("-(rfe) fit",
+      cat2("-(rfe) fit",
           ifelse(label != "",
                  label, ""),
           "size:",  sizeText[k], "\n")
@@ -446,14 +446,14 @@ rfeIter <- function(x, y,
     {
       if(rfeControl$verbose)
       {
-        cat("+(rfe) imp",
+        cat2("+(rfe) imp",
             ifelse(label != "",
                    label, ""), "\n")
       }
       modImp <- rfeControl$functions$rank(fitObject, x[,retained,drop = FALSE], y)
       if(rfeControl$verbose)
       {
-        cat("-(rfe) imp",
+        cat2("-(rfe) imp",
             ifelse(label != "",
                    label, ""), "\n")
       }
@@ -462,7 +462,7 @@ rfeIter <- function(x, y,
       {
         if(rfeControl$verbose)
         {
-          cat("+(rfe) imp",
+          cat2("+(rfe) imp",
               ifelse(label != "",
                      label, ""),
               "size:",  sizeText[k], "\n")
@@ -470,7 +470,7 @@ rfeIter <- function(x, y,
         modImp <- rfeControl$functions$rank(fitObject, x[,retained,drop = FALSE], y)
         if(rfeControl$verbose)
         {
-          cat("-(rfe) imp",
+          cat2("-(rfe) imp",
               ifelse(label != "",
                      label, ""),
               "size:",  sizeText[k], "\n")
